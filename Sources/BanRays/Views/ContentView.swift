@@ -64,7 +64,12 @@ struct ContentView: View {
 
     private var deviceList: some View {
         List(viewModel.devices) { device in
-            DeviceRowView(device: device)
+            NavigationLink(value: device) {
+                DeviceRowView(device: device)
+            }
+        }
+        .navigationDestination(for: DiscoveredDevice.self) { device in
+            DeviceDetailView(device: device)
         }
         .refreshable {
             viewModel.clearAndRescan()

@@ -1,0 +1,50 @@
+name: BanRays
+options:
+  bundleIdPrefix: com.banrays
+  deploymentTarget:
+    iOS: "17.0"
+  xcodeVersion: "15.0"
+  generateEmptyDirectories: true
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    SWIFT_STRICT_CONCURRENCY: complete
+    SWIFT_TREAT_WARNINGS_AS_ERRORS: YES
+
+targets:
+  BanRays:
+    type: application
+    platform: iOS
+    sources:
+      - Sources/BanRays
+    settings:
+      base:
+        INFOPLIST_FILE: Sources/BanRays/Resources/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.banrays.app
+        MARKETING_VERSION: "1.0.0"
+        CURRENT_PROJECT_VERSION: "1"
+
+  BanRaysTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - Tests/BanRaysTests
+    dependencies:
+      - target: BanRays
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+
+schemes:
+  BanRays:
+    build:
+      targets:
+        BanRays: all
+    run:
+      config: Debug
+    test:
+      targets:
+        - BanRaysTests
+    analyze:
+      config: Debug

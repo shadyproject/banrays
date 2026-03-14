@@ -50,6 +50,7 @@ enum ManufacturerIDs {
         0x0171: "Amazon",
         0x018F: "LEGO System",
         0x0198: "Polar Electro",
+        0x01AB: "Meta Platforms",
         0x01B3: "ASSA ABLOY",
         0x01BC: "Harman",
         0x01D4: "Sonos",
@@ -60,6 +61,9 @@ enum ManufacturerIDs {
         0x0259: "Withings",
         0x0310: "Wyze Labs",
         0x038F: "Govee",
+        0x03C2: "Snapchat",
+        0x058E: "Meta Platforms Technologies",
+        0x0D53: "Luxottica Group",
     ]
 
     /// Returns the manufacturer name for a given company ID.

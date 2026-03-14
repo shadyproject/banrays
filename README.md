@@ -61,4 +61,4 @@ The app recognizes ~50 common Bluetooth SIG company identifiers including Apple,
 
 ## License
 
-MIT
+[The Unlicense](https://unlicense.org/)

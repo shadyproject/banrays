@@ -7,6 +7,12 @@ import Foundation
 ///
 /// - SeeAlso: [Bluetooth SIG Assigned Numbers](https://www.bluetooth.com/specifications/assigned-numbers/)
 enum ManufacturerIDs {
+    // MARK: - Company ID Constants
+
+    static let apple: UInt16 = 0x004C
+
+    // MARK: - Name Lookup
+
     /// Dictionary mapping company ID to company name.
     static let names: [UInt16: String] = [
         0x0001: "Nokia",

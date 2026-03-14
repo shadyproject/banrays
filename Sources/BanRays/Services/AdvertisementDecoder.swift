@@ -9,7 +9,6 @@ struct AdvertisementDecoder {
     }
 
     private static let iBeaconDataLength = 23
-    private static let appleCompanyID: UInt16 = 0x004C
 
     // MARK: - Public Interface
 
@@ -27,7 +26,7 @@ struct AdvertisementDecoder {
         let manufacturerName = ManufacturerIDs.name(for: companyID)
         let payload = data.dropFirst(2)
 
-        if companyID == appleCompanyID, let iBeacon = decodeIBeacon(from: payload) {
+        if companyID == ManufacturerIDs.apple, let iBeacon = decodeIBeacon(from: payload) {
             return iBeacon
         }
 

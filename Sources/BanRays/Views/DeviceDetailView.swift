@@ -3,6 +3,8 @@ import SwiftUI
 struct DeviceDetailView: View {
     let device: DiscoveredDevice
 
+    @State private var showRawData = false
+
     var body: some View {
         List {
             Section("Device") {
@@ -17,8 +19,28 @@ struct DeviceDetailView: View {
             }
 
             if let data = device.manufacturerData, !data.isEmpty {
-                Section("Raw Data") {
-                    rawDataView(data)
+                Section {
+                    Button {
+                        withAnimation {
+                            showRawData.toggle()
+                        }
+                    } label: {
+                        HStack {
+                            Text("Raw Data")
+                                .foregroundStyle(.primary)
+                            Spacer()
+                            Text("\(data.count) bytes")
+                                .foregroundStyle(.secondary)
+                            Image(systemName: "chevron.right")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                                .rotationEffect(.degrees(showRawData ? 90 : 0))
+                        }
+                    }
+
+                    if showRawData {
+                        rawDataView(data)
+                    }
                 }
             }
         }
@@ -72,16 +94,10 @@ struct DeviceDetailView: View {
     }
 
     private func rawDataView(_ data: Data) -> some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("Hex (\(data.count) bytes)")
-                .font(.caption)
-                .foregroundStyle(.secondary)
-
-            Text(formatHex(data))
-                .font(.system(.caption, design: .monospaced))
-                .textSelection(.enabled)
-        }
-        .padding(.vertical, 4)
+        Text(formatHex(data))
+            .font(.system(.caption, design: .monospaced))
+            .textSelection(.enabled)
+            .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     // MARK: - Helpers

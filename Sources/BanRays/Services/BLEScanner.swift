@@ -105,11 +105,15 @@ extension BLEScanner: CBCentralManagerDelegate {
         advertisementData: [String: Any],
         rssi RSSI: NSNumber
     ) {
+        let serviceUUIDs = (advertisementData[CBAdvertisementDataServiceUUIDsKey] as? [CBUUID])?
+            .map { UUID(uuidString: $0.uuidString) ?? UUID() }
+
         let device = DiscoveredDevice(
             id: peripheral.identifier,
             name: peripheral.name ?? advertisementData[CBAdvertisementDataLocalNameKey] as? String,
             rssi: RSSI.intValue,
             manufacturerData: advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data,
+            serviceUUIDs: serviceUUIDs,
             timestamp: Date()
         )
 

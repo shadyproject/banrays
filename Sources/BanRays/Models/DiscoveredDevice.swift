@@ -5,6 +5,7 @@ struct DiscoveredDevice: Identifiable, Hashable, Sendable {
     let name: String?
     let rssi: Int
     let manufacturerData: Data?
+    let serviceUUIDs: [UUID]?
     let timestamp: Date
 
     var displayName: String {
@@ -20,5 +21,17 @@ struct DiscoveredDevice: Identifiable, Hashable, Sendable {
     var decodedAdvertisement: DecodedAdvertisement? {
         guard let data = manufacturerData else { return nil }
         return AdvertisementDecoder.decode(data)
+    }
+
+    /// The manufacturer ID extracted from the manufacturer data, if available.
+    var manufacturerID: UInt16? {
+        guard let data = manufacturerData, data.count >= 2 else { return nil }
+        return UInt16(data[0]) | (UInt16(data[1]) << 8)
+    }
+
+    /// Whether this device is from a smart glasses manufacturer.
+    var isSmartGlasses: Bool {
+        guard let id = manufacturerID else { return false }
+        return ManufacturerIDs.isSmartGlassesManufacturer(id)
     }
 }

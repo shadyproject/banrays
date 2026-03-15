@@ -10,6 +10,25 @@ enum ManufacturerIDs {
     // MARK: - Company ID Constants
 
     static let apple: UInt16 = 0x004C
+    static let metaPlatforms: UInt16 = 0x01AB
+    static let metaPlatformsTechnologies: UInt16 = 0x058E
+    static let luxotticaGroup: UInt16 = 0x0D53
+    static let snapchat: UInt16 = 0x03C2
+
+    // MARK: - Smart Glasses Manufacturers
+
+    /// Set of manufacturer IDs associated with smart glasses devices.
+    static let smartGlassesManufacturers: Set<UInt16> = [
+        metaPlatforms,
+        metaPlatformsTechnologies,
+        luxotticaGroup,
+        snapchat,
+    ]
+
+    /// Checks if a manufacturer ID is associated with smart glasses.
+    static func isSmartGlassesManufacturer(_ id: UInt16) -> Bool {
+        smartGlassesManufacturers.contains(id)
+    }
 
     // MARK: - Name Lookup
 

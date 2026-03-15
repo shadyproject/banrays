@@ -18,6 +18,9 @@ targets:
     platform: iOS
     sources:
       - Sources/BanRays
+    configFiles:
+      Debug: Local.xcconfig
+      Release: Local.xcconfig
     settings:
       base:
         INFOPLIST_FILE: Sources/BanRays/Resources/Info.plist

@@ -1,0 +1,9 @@
+// Copy this file to Local.xcconfig and fill in your values.
+// Local.xcconfig is gitignored and will not be committed.
+
+// Your Apple Developer Team ID (10-character alphanumeric)
+// Find it at: https://developer.apple.com/account -> Membership details
+DEVELOPMENT_TEAM = XXXXXXXXXX
+
+// Signing style: Automatic or Manual
+CODE_SIGN_STYLE = Automatic

@@ -90,6 +90,6 @@ final class BLEScannerViewModel {
         } else {
             devices.append(device)
         }
-        devices.sort { $0.rssi > $1.rssi }
+        devices.sort { $0.timestamp > $1.timestamp }
     }
 }

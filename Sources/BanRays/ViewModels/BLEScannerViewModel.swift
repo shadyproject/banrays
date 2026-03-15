@@ -52,6 +52,9 @@ final class BLEScannerViewModel {
 
     func clearAndRescan() {
         stopScanning()
+        Task {
+            await NotificationService.shared.clearNotifiedDevices()
+        }
         startScanning()
     }
 
@@ -85,11 +88,19 @@ final class BLEScannerViewModel {
     }
 
     private func updateDevice(_ device: DiscoveredDevice) {
+        let isNewDevice = !devices.contains { $0.id == device.id }
+
         if let index = devices.firstIndex(where: { $0.id == device.id }) {
             devices[index] = device
         } else {
             devices.append(device)
         }
         devices.sort { $0.timestamp > $1.timestamp }
+
+        if isNewDevice && device.isSmartGlasses {
+            Task {
+                await NotificationService.shared.notifySmartGlassesDetected(device)
+            }
+        }
     }
 }

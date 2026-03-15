@@ -5,6 +5,9 @@ struct BanRaysApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .task {
+                    await NotificationService.shared.requestAuthorization()
+                }
         }
     }
 }

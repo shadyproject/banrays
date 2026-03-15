@@ -18,6 +18,16 @@ struct DeviceDetailView: View {
                 advertisementSection(decoded)
             }
 
+            if let serviceUUIDs = device.serviceUUIDs, !serviceUUIDs.isEmpty {
+                Section("Advertised Services") {
+                    ForEach(serviceUUIDs, id: \.self) { uuid in
+                        Text(uuid.uuidString)
+                            .font(.system(.body, design: .monospaced))
+                            .textSelection(.enabled)
+                    }
+                }
+            }
+
             if let data = device.manufacturerData, !data.isEmpty {
                 Section {
                     Button {

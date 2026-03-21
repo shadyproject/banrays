@@ -63,17 +63,47 @@ struct ContentView: View {
     }
 
     private var deviceList: some View {
-        List(viewModel.devices) { device in
-            NavigationLink(value: device) {
-                DeviceRowView(device: device)
+        VStack(spacing: 0) {
+            if !viewModel.pinnedDevices.isEmpty {
+                pinnedDevicesSection
+            }
+
+            List(viewModel.devices) { device in
+                NavigationLink(value: device) {
+                    DeviceRowView(device: device)
+                }
+            }
+            .refreshable {
+                viewModel.clearAndRescan()
             }
         }
         .navigationDestination(for: DiscoveredDevice.self) { device in
             DeviceDetailView(device: device)
         }
-        .refreshable {
-            viewModel.clearAndRescan()
+    }
+
+    private var pinnedDevicesSection: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Manufacturer Devices")
+                .font(.caption)
+                .fontWeight(.medium)
+                .foregroundStyle(.secondary)
+                .padding(.horizontal)
+
+            ScrollView(.horizontal, showsIndicators: false) {
+                LazyHStack(spacing: 12) {
+                    ForEach(viewModel.pinnedDevices) { device in
+                        NavigationLink(value: device) {
+                            PinnedDeviceCardView(device: device)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+                .padding(.horizontal)
+            }
         }
+        .padding(.vertical, 12)
+        .background(Color(.systemBackground))
     }
 
     private var scanButton: some View {

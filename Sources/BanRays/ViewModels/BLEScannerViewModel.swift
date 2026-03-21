@@ -13,6 +13,11 @@ final class BLEScannerViewModel {
     private(set) var scanState: ScanState = .idle
     private(set) var bluetoothState: BLEScannerState = .unknown
 
+    /// Devices with manufacturer data, sorted by most recent first.
+    var pinnedDevices: [DiscoveredDevice] {
+        devices.filter { $0.manufacturerData != nil }
+    }
+
     private let scanner = BLEScanner()
     private var scanTask: Task<Void, Never>?
     private var stateTask: Task<Void, Never>?
